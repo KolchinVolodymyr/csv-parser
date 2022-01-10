@@ -84,15 +84,38 @@ var arr = [
     { id: 9, weight: 5   }
 ];
 
-var arr2 = arr.reduce( (a,b) => {
-    var i = a.findIndex( x => x.id === b.id);
-    console.log('a', a);
-    console.log('a[i]', a[i]);
-    return i === -1 ? a.push({ id : b.id, times : [] }) : a.times.push('d'), a;
-    // a.push({ id : b.id, times : a[i].times++ })
-}, []);
+// var arr2 = arr.reduce( (a,b) => {
+//     var i = a.findIndex( x => x.id === b.id);
+//     console.log('a', a);
+//     console.log('a[i]', a[i]);
+//     return i === -1 ? a.push({ id : b.id, times : [] }) : a.times.push('d'), a;
+//     // a.push({ id : b.id, times : a[i].times++ })
+// }, []);
+//
+// console.log(arr2);
 
-console.log(arr2)
+                var combinedItems = arr.reduce(function(arr, item, index) {
+                    var found = false;
+
+                    for (var i = 0; i < arr.length; i++) {
+                        if (arr[i].id === item.id) {
+                            found = true;
+                            arr[i].count++;
+                        // console.log('arr[i].count++', arr[i].count++);
+                            arr[i].arr.push(arr[i].count)
+                        }
+                    }
+
+                    if (!found) {
+                        item.arr = [];
+                        item.count = 0;
+                        arr.push(item);
+                    }
+
+                    return arr;
+                }, [])
+
+                console.log(combinedItems);
 
 
 //                jsonObj.forEach(function (item) {
