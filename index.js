@@ -65,104 +65,277 @@ app.get('/', (req, res) =>{
 
 app.post('/', (req, res) =>{
     if(req.files) {
-        const orders = [];
+        const data = [];
         let getProducts =
         csv()
             .fromFile(req.files.file.tempFilePath)
             .then((jsonObj) => {
-                console.log('jsonObj', jsonObj);
+//                console.log('jsonObj', jsonObj);
+var arrNew = [
+
+           {
+             'First Name': '',
+             'Last Name': '',
+             Email: 'user1@gmail.com',
+             Company: 'Company 1 test',
+             Address1: '150 Elgin St 1',
+             Address2: 'Unit 111',
+             City: 'Ottawa',
+             Province: 'Ontario',
+             'Province Code': 'ON',
+             Country: 'Canada',
+             'Country Code': 'CA',
+             Zip: 'K2P 1L4',
+             Phone: '',
+             'Accepts Marketing': '',
+             Tags: '',
+             Note: '',
+             'Tax Exempt': '',
+             'Metafield Namespace': 'global',
+             'Metafield Key': 'email_list',
+             'Metafield Value': 'weekly',
+             'Metafield Value Type': 'string'
+           },
+           {
+             'First Name': '',
+             'Last Name': '',
+             Email: 'user1@gmail.com',
+             Company: 'Company 1 test',
+             Address1: '150 Elgin St 2',
+             Address2: 'Unit 333',
+             City: 'Ottawa',
+             Province: 'Ontario',
+             'Province Code': 'ON',
+             Country: 'Canada',
+             'Country Code': 'CA',
+             Zip: 'K3P 1L4',
+             Phone: '',
+             'Accepts Marketing': '',
+             Tags: '',
+             Note: '',
+             'Tax Exempt': '',
+             'Metafield Namespace': 'global',
+             'Metafield Key': 'email_list',
+             'Metafield Value': 'weekly',
+             'Metafield Value Type': 'string'
+           },
+           {
+             'First Name': '',
+             'Last Name': '',
+             Email: 'user1@gmail.com',
+             Company: 'Company 1 test',
+             Address1: '150 Elgin St 3',
+             Address2: 'Unit 441',
+             City: 'Ottawa',
+             Province: 'Ontario',
+             'Province Code': 'ON',
+             Country: 'Canada',
+             'Country Code': 'CA',
+             Zip: 'K4P 1L4',
+             Phone: '',
+             'Accepts Marketing': '',
+             Tags: '',
+             Note: '',
+             'Tax Exempt': '',
+             'Metafield Namespace': 'global',
+             'Metafield Key': 'email_list',
+             'Metafield Value': 'weekly',
+             'Metafield Value Type': 'string'
+           },
+           {
+             'First Name': '',
+             'Last Name': '',
+             Email: 'john.doe@acme.com',
+             Company: 'Acme Ltd.',
+             Address1: '150 Elgin St',
+             Address2: 'Unit 56',
+             City: 'Ottawa',
+             Province: 'Ontario',
+             'Province Code': 'ON',
+             Country: 'Canada',
+             'Country Code': 'CA',
+             Zip: 'K2P 1L4',
+             Phone: '',
+             'Accepts Marketing': '',
+             Tags: '',
+             Note: '',
+             'Tax Exempt': '',
+             'Metafield Namespace': 'global',
+             'Metafield Key': 'email_list',
+             'Metafield Value': 'weekly',
+             'Metafield Value Type': 'string'
+           },
+           {
+             'First Name': '',
+             'Last Name': '',
+             Email: 'john.doe@acmes.com',
+             Company: '',
+             Address1: '',
+             Address2: '',
+             City: '',
+             Province: '',
+             'Province Code': '',
+             Country: '',
+             'Country Code': '',
+             Zip: '',
+             Phone: '',
+             'Accepts Marketing': '',
+             Tags: '',
+             Note: '',
+             'Tax Exempt': '',
+             'Metafield Namespace': 'global',
+             'Metafield Key': 'corporate',
+             'Metafield Value': 'true',
+             'Metafield Value Type': 'string'
+           },
+           {
+             'First Name': 'Jane',
+             'Last Name': 'Doe',
+             Email: 'jane.doe@acmey.com',
+             Company: 'Acme Inc.',
+             Address1: '490 Rue de la Gauchetière O',
+             Address2: '',
+             City: 'Montreal',
+             Province: 'Quebec',
+             'Province Code': 'QC',
+             Country: 'Canada',
+             'Country Code': 'CA',
+             Zip: 'H2Z 0B2',
+             Phone: '613-555-6666',
+             'Accepts Marketing': 'false',
+             Tags: '',
+             Note: 'Tendency to return clothing in size 0.',
+             'Tax Exempt': 'true',
+             'Metafield Namespace': 'global',
+             'Metafield Key': 'frequent_returner',
+             'Metafield Value': 'TRUE',
+             'Metafield Value Type': 'string'
+           },
+           {
+             'First Name': 'Jane',
+             'Last Name': 'Doe',
+             Email: 'jane.doe@acmey.com',
+             Company: 'Acme Inc.',
+             Address1: '560 Random streen name',
+             Address2: '',
+             City: 'Montreal',
+             Province: 'Quebec',
+             'Province Code': 'QC',
+             Country: 'Canada',
+             'Country Code': 'CA',
+             Zip: 'H2Z 0B2',
+             Phone: '613-555-6666',
+             'Accepts Marketing': 'false',
+             Tags: '',
+             Note: 'Tendency to return clothing in size 0.',
+             'Tax Exempt': 'true',
+             'Metafield Namespace': 'global',
+             'Metafield Key': 'frequent_returner',
+             'Metafield Value': 'TRUE',
+             'Metafield Value Type': 'string'
+           }
+         ]
 
 
+        var combinedItems = jsonObj.reduce(function(arr, item, index) {
+            var found = false;
 
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].Email === item.Email) {
+                    found = true;
+//                    arr[i].count++;
+                    arr[i].arr.push({
+                        'Address Line 1': item.Address1,
+                        'Address Line 2': item.Address2,
+                        'Address Company': item.Company,
+                        'Address City': item.City,
+                        'Address Zip': item.Zip,
+                        'Address Country': item.Country,
+                        'Address Phone': item.Phone,
+                    })
+                }
+            }
 
-var arr = [
-    { id: 0, weight: 200 },
-    { id: 0, weight: 300 },
-    { id: 2, weight: 75  },
-    { id: 2, weight: 70  },
-    { id: 2, weight: 50  },
-    { id: 9, weight: 5   }
-];
+            if (!found) {
+                item.arr = [{
+                    'Address Line 1': item.Address1,
+                    'Address Line 2': item.Address2,
+                    'Address Company': item.Company,
+                    'Address City': item.City,
+                    'Address Zip': item.Zip,
+                    'Address Country': item.Country,
+                    'Address Phone': item.Phone,
+                }];
+//                item.count = 1;
+                arr.push(item);
+                data.push(arr[i]);
+            }
 
-// var arr2 = arr.reduce( (a,b) => {
-//     var i = a.findIndex( x => x.id === b.id);
-//     console.log('a', a);
-//     console.log('a[i]', a[i]);
-//     return i === -1 ? a.push({ id : b.id, times : [] }) : a.times.push('d'), a;
-//     // a.push({ id : b.id, times : a[i].times++ })
-// }, []);
-//
-// console.log(arr2);
+            return arr;
+        }, [])
 
-                var combinedItems = arr.reduce(function(arr, item, index) {
-                    var found = false;
-
-                    for (var i = 0; i < arr.length; i++) {
-                        if (arr[i].id === item.id) {
-                            found = true;
-                            arr[i].count++;
-                        // console.log('arr[i].count++', arr[i].count++);
-                            arr[i].arr.push(arr[i].count)
-                        }
-                    }
-
-                    if (!found) {
-                        item.arr = [];
-                        item.count = 0;
-                        arr.push(item);
-                    }
-
-                    return arr;
-                }, [])
-
-                console.log(combinedItems);
-
-
-//                jsonObj.forEach(function (item) {
-//                    let count =0;
-//                    orders.forEach((el)=>{
-////                        console.log('ORDER', el['Email Address']);
-//                        if(el['Email Address'] == item['Email']) {
-//                            console.log('email.', el['Email Address'])
-//                            count++
-//                        } else {
-//                            orders.push({
-//                               'First Name': item['First Name'],
-//                               'Last Name': item['Last Name'],
-//                               'Email Address': item['Email'],
-//                               'Company': item['Company'],
-//                               'Phone': item['Phone'],
-//                               'Notes': item['Note'],
-//                            });
-//                        }
-//                    })
-////                    console.log('item-Email', item['Email']);
-////                    console.log('orders', orders['Email Address'])
-//
-////                    console.log('item', item)
-//                })
-//                console.log('orders', orders);
             });
 
         Promise.all([getProducts]).then(() => {
             const writerExport = csvWriter({})
 
-            writerExport.pipe(fs.createWriteStream('neworders.csv'))
-            let arr = [];
-            let newLine = {};
-//            orders.forEach((el)=>{
-//                console.log('el', el['Email Address']);
+            writerExport.pipe(fs.createWriteStream('neworders.csv'));
+            let newArr = [];
+
+            data.map((i)=>{
+                let count = 0;
+                i.arr.map((a, index)=>{
+                    index++;
+                    count++;
+                    // loop over keys and values
+                    Object.entries(a).forEach(([key, value]) => {
+                         i[`${key} - ${index}`] = value;
+                    });
+
+                });
+                console.log('count', count)
+                delete i.arr;
+            });
+//            console.log('data', data);
+
+
+            /*Change arr*/
+            var changeArray = data.map((item, index) => ({
+                'First Name': item['First Name'],
+                'Last Name': item['Last Name'],
+                'Email Address': item['Email'],
+                'Company': item['Company'],
+                'Phone': item['Phone'],
+                'Notes': item['Note']
+
+            }))
+//            console.log('changeArray', changeArray)
+console.log('data', data)
+            /*Write CSV*/
+            data.map((el)=>{
+//                console.log('el.length', Object.keys(el[0]).length);
+//                Object.keys(el[0]).length
+                writerExport.write(el);
+            })
+
+//            console.log(changeArray);
+//            var ElementList ={}
+//            data.map((el)=>{
+//                'Address': el['Email']
 //            })
-            for (const line of orders) {
-//            console.log('orders', orders);
-//            console.log('line', line);
-//            arr.push(line)
-//            console.log('newLine.includes(lin)', newLine.includes(line['Email']));
-//            if(!newLine.includes(line['Email'])) {
-//                console.log('line[Email]', line['Email']);
-//                console.log('newLine 23232', newLine['Email Address']);
-//                newLine.push({newLine'Email Address': line['Email']})
-//            }
+//            for (const line of data) {
+//               line['Email Address']: line['Email'];
+//               delete line['Email'];
+//
+//                console.log('line', line);
+//                Object.assign(ElementList, line.arr)
+//                newArr.push(line);
+//                 writerExport.write(line);
+//                Object.assign(ElementList, line.arr)
+
+//                console.log('Object.assign({', Object.assign({}, line.arr))
+//                newLine['First Name'] = line['First Name']
+//                newLine['Email Address'] = line['Email']
 
 //                   newLine['First Name'] = line['First Name']
 //                   newLine['Email Address'] = line['Email']
@@ -172,23 +345,14 @@ var arr = [
 //                   newLine['Address First Name'] = line['Address1']
 //                   newLine['Address Last Name'] = line['Address2']
 //                   newLine['Address Company'] = line['Address Company']
-
-//                    newLine.push({'Last Name': line['Last Name']})
-
-            }
-//            for(const el of Object.values(newLine)) {
-//                console.log('el', el)
+//                   newLine.push({'Last Name': line['Last Name']})
 //            }
-//             console.log('arr', arr);
-//             arr.forEach((index)=>{
-//                console.log('index', index['Email']);
-//                if(arr.includes('user1@gmail.com')) {
-//                console.log('true')
-//                }
-//             })
-//             console.log('newLine finish', newLine);
-//            writerExport.write(newLine);
-            return;
+
+//            console.log('data', data);
+//const arr = [ ['0', 'a'], ['1', 'b'], ['2', 'c'], ['0', 'adddd'] ];
+//const obj = Object.fromEntries(arr);
+//console.log(obj); // { 0: "a", 1: "b", 2: "c" }
+//             writerExport.write(obj);
         });
     }
 
@@ -197,5 +361,5 @@ var arr = [
 })
 
 app.listen(3000 || process.env.PORT, () => {
-  console.log("Server on...")
+  console.log("Server on...");
 })
