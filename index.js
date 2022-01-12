@@ -1,5 +1,5 @@
 const express = require("express");
-const upload = require("express-fileupload")
+const upload = require("express-fileupload");
 const csv = require('csvtojson');
 const csvWriter = require('csv-write-stream');
 const fs = require('fs');
@@ -7,7 +7,7 @@ const fs = require('fs');
 const app = express();
 app.use(upload({useTempFiles: true}));
 
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
 
@@ -92,7 +92,7 @@ app.post('/', (req, res) =>{
 
             }))
 
-            console.log('data', data)
+//            console.log('data', data)
             /*Write CSV*/
             data.map((el)=>{
                 writerExport.write(el);
@@ -100,10 +100,12 @@ app.post('/', (req, res) =>{
 
         });
     }
-
-
-    res.sendFile(__dirname + '/completion.html')
+    res.redirect('/download')
 })
+
+app.get('/download', function (req, res, next) {
+    res.download(__dirname + '/neworders.csv', 'neworders.csv');
+});
 
 app.listen(3000 || process.env.PORT, () => {
   console.log("Server on...");
