@@ -63,7 +63,6 @@ app.post('/', (req, res) =>{
             const writerExport = csvWriter({})
 
             writerExport.pipe(fs.createWriteStream('neworders.csv'));
-            let newArr = [];
 
             data.map((i)=>{
                 let count = 0;
@@ -76,7 +75,7 @@ app.post('/', (req, res) =>{
                     });
 
                 });
-                console.log('count', count)
+                // console.log('count', count);
                 delete i.arr;
             });
 
@@ -92,7 +91,6 @@ app.post('/', (req, res) =>{
 
             }))
 
-//            console.log('data', data)
             /*Write CSV*/
             data.map((el)=>{
                 writerExport.write(el);
