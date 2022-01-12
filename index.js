@@ -92,7 +92,7 @@ app.post('/', (req, res) =>{
 
             }))
 
-console.log('data', data)
+            console.log('data', data)
             /*Write CSV*/
             data.map((el)=>{
                 writerExport.write(el);
@@ -102,7 +102,7 @@ console.log('data', data)
     }
 
 
-
+    res.sendFile(__dirname + '/completion.html')
 })
 
 app.listen(3000 || process.env.PORT, () => {
