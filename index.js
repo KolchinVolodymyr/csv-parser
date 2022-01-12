@@ -100,7 +100,7 @@ app.post('/', (req, res) =>{
 
         });
     }
-    res.redirect('/download')
+    res.sendFile(__dirname + '/completion.html');
 })
 
 app.get('/download', function (req, res, next) {
