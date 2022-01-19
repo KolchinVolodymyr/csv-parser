@@ -26,7 +26,7 @@ app.post('/', (req, res) =>{
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i].Email === item.Email) {
                     found = true;
-//                    arr[i].count++;
+                    arr[i].count++;
                     arr[i].arr.push({
                         'Address Line 1': item.Address1,
                         'Address Line 2': item.Address2,
@@ -49,7 +49,7 @@ app.post('/', (req, res) =>{
                     'Address Country': item.Country,
                     'Address Phone': item.Phone,
                 }];
-//                item.count = 1;
+                item.count = 1;
                 arr.push(item);
                 data.push(arr[i]);
             }
@@ -82,17 +82,48 @@ app.post('/', (req, res) =>{
 
             /*Change arr*/
             var changeArray = data.map((item, index) => ({
-                'First Name': item['First Name'],
                 'Last Name': item['Last Name'],
+                'First Name': item['First Name'],
                 'Email Address': item['Email'],
                 'Company': item['Company'],
                 'Phone': item['Phone'],
-                'Notes': item['Note']
-
+                'Notes': item['Note'],
+                'Address First Name - 1': item['First Name'],
+                'Address Last Name - 1': item['Last Name'],
+                'Address Company - 1': item['Address Company - 1'],
+                'Address Line 1 - 1': item['Address Line 1 - 1'],
+                'Address Line 2 - 1': item['Address Line 1 - 2'],
+                'Address City - 1': item['Address City - 1'],
+                'Address Zip - 1': item['Address Zip - 1'],
+                'Address Country - 1': item['Address Country - 1'],
+                'Address Phone - 1': item['Address Phone - 1'],
+                'Address First Name - 2': item['First Name'],
+                'Address Last Name - 2': item['Last Name'],
+                'Address Company - 2': item['Address Company - 2'],
+                'Address Line 1 - 2': item['Address Line 1 - 2'],
+                'Address Line 2 - 2': item['Address Line 2 - 2'],
+                'Address City - 2': item['Address City - 2'],
+                'Address Zip - 2': item['Address Zip - 2'],
+                'Address Country - 2': item['Address Country - 2'],
+                'Address Phone - 2': item['Address Phone - 2'],
+                'Address First Name - 3': item['First Name'],
+                'Address Last Name - 3': item['Last Name'],
+                'Address Company - 3': item['Address Company - 3'],
+                'Address Line 1 - 3': item['Address Line 1 - 3'],
+                'Address Line 2 - 3': item['Address Line 2 - 3'],
+                'Address City - 3': item['Address City - 3'],
+                'Address Zip - 3': item['Address Zip - 3'],
+                'Address Country - 3': item['Address Country - 3'],
+                'Address Phone - 3': item['Address Phone - 3'],
+                'Accepts Marketing': item['Accepts Marketing'],
+                'Metafield Namespace': item['Metafield Namespace'],
+                'Metafield Key': item['Metafield Key'],
+                'Metafield Value': item['Metafield Value'],
+                'Metafield Value Type': item['Metafield Value Type'],
             }))
 
             /*Write CSV*/
-            data.map((el)=>{
+            changeArray.map((el)=>{
                 writerExport.write(el);
             })
 
