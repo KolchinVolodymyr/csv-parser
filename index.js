@@ -84,7 +84,7 @@ app.post('/', (req, res) =>{
         Promise.all([getProducts]).then(() => {
             const writerExport = csvWriter({})
 
-            writerExport.pipe(fs.createWriteStream('neworders.csv'));
+            writerExport.pipe(fs.createWriteStream('newCustomer.csv'));
 
             data.map((i)=>{
                 let count = 0;
@@ -169,7 +169,7 @@ app.post('/', (req, res) =>{
 })
 
 app.get('/download', function (req, res, next) {
-    res.download(__dirname + '/neworders.csv', 'neworders.csv');
+    res.download(__dirname + '/newCustomer.csv', 'newCustomer.csv');
 });
 
 app.listen(3000 || process.env.PORT, () => {
