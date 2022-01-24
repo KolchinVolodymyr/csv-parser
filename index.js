@@ -3,6 +3,9 @@ const upload = require("express-fileupload");
 const csv = require('csvtojson');
 const csvWriter = require('csv-write-stream');
 const fs = require('fs');
+const logger = require('./configs/logger');
+const { body, validationResult } = require('express-validator');
+const validator = require('validator');
 
 const app = express();
 app.use(upload({useTempFiles: true}));
@@ -24,6 +27,14 @@ app.post('/', (req, res) =>{
             var found = false;
 
             for (var i = 0; i < arr.length; i++) {
+                // console.log('item.Email', item.Email)
+                // if(item.Email === '') {
+                //
+                //     console.log('no Email')
+                //     console.log('item.Email', JSON.stringify(item));
+                //     logger.info(`Request returned error code:${JSON.stringify(item)}`);
+                //     return ;
+                // }
                 if (arr[i].Email === item.Email) {
                     found = true;
                     arr[i].count++;
@@ -56,6 +67,17 @@ app.post('/', (req, res) =>{
 
             return arr;
         }, [])
+                // combinedItems.forEach((i)=>{
+                //     console.log('i.Email' , i);
+                //     // console.log('2', body(i.Email).isEmail())
+                //     console.log(`${i.Email}`,validator.isEmail(i.Email));
+                //     // console.log(validator.isPostalCode()) // false
+                //     // console.log(validator.isMobilePhone(data.cell, `en-${data.countryCode}`));
+                //     // console.log(validator.isLength(Name))
+                //     if(i.Email === '') {
+                //     }
+                //
+                // })
 
             });
 
@@ -124,7 +146,21 @@ app.post('/', (req, res) =>{
 
             /*Write CSV*/
             changeArray.map((el)=>{
-                writerExport.write(el);
+                switch (
+                    validator.isEmail(el['Email Address']) &&
+                    validator.isLength(el['Last Name'], {min:3, max: undefined}) &&
+                    validator.isLength(el['First Name'], {min:3, max: undefined})
+                    ) {
+                    case true:
+                        writerExport.write(el);
+                        break;
+                    case false:
+                        logger.info(`${JSON.stringify(el)}`);
+                        break;
+                    default:
+                        logger.info(`default`);
+                        break;
+                }
             })
 
         });
