@@ -143,9 +143,30 @@ app.post('/', (req, res) =>{
                 'Metafield Value': item['Metafield Value'],
                 'Metafield Value Type': item['Metafield Value Type'],
             }))
-
+            function funValidation (elem) {
+                const a = false;
+                // Object.keys(elem);
+                // console.log('elem-Email Address', elem['Email Address']);
+                // if()
+                // console.log(Object.keys(elem));
+                // console.log(Object.entries(elem));
+                Object.entries(elem).map(([key, value]) => {
+                    if (key === 'Last Name') {
+                        console.log('value-Last Name', value);
+                    }
+                    console.log('key-last-name', key['Last Name']);
+                    if (key === 'First Name') {
+                        console.log('value-First Name', value);
+                    }
+                    if (key === 'Email Address') {
+                        console.log('value-Email Address', value);
+                    }
+                })
+            }
             /*Write CSV*/
             changeArray.map((el)=>{
+                funValidation(el);
+                let a = `Email Address:${validator.isEmail(el['Email Address'])}, Last Name:${validator.isLength(el['Last Name'], {min:3, max: undefined})}, First Name:${validator.isLength(el['First Name'], {min:3, max: undefined})}`;
                 switch (
                     validator.isEmail(el['Email Address']) &&
                     validator.isLength(el['Last Name'], {min:3, max: undefined}) &&
@@ -155,7 +176,7 @@ app.post('/', (req, res) =>{
                         writerExport.write(el);
                         break;
                     case false:
-                        logger.info(`${JSON.stringify(el)}`);
+                        logger.info(`Validation ${JSON.stringify(a)} - ${JSON.stringify(el)}`);
                         break;
                     default:
                         logger.info(`default`);
