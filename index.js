@@ -26,14 +26,6 @@ app.post('/', (req, res) =>{
             var found = false;
 
             for (var i = 0; i < arr.length; i++) {
-                // console.log('item.Email', item.Email)
-                // if(item.Email === '') {
-                //
-                //     console.log('no Email')
-                //     console.log('item.Email', JSON.stringify(item));
-                //     logger.info(`Request returned error code:${JSON.stringify(item)}`);
-                //     return ;
-                // }
                 if (arr[i].Email === item.Email) {
                     found = true;
                     arr[i].count++;
