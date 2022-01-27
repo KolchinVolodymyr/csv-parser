@@ -21,7 +21,6 @@ app.post('/', (req, res) =>{
         csv()
             .fromFile(req.files.file.tempFilePath)
             .then((jsonObj) => {
-//                console.log('jsonObj', jsonObj);
 
         var combinedItems = jsonObj.reduce(function(arr, item, index) {
             var found = false;
@@ -67,19 +66,7 @@ app.post('/', (req, res) =>{
 
             return arr;
         }, [])
-                // combinedItems.forEach((i)=>{
-                //     console.log('i.Email' , i);
-                //     // console.log('2', body(i.Email).isEmail())
-                //     console.log(`${i.Email}`,validator.isEmail(i.Email));
-                //     // console.log(validator.isPostalCode()) // false
-                //     // console.log(validator.isMobilePhone(data.cell, `en-${data.countryCode}`));
-                //     // console.log(validator.isLength(Name))
-                //     if(i.Email === '') {
-                //     }
-                //
-                // })
-
-            });
+    });
 
         Promise.all([getProducts]).then(() => {
             const writerExport = csvWriter({})
@@ -97,7 +84,6 @@ app.post('/', (req, res) =>{
                     });
 
                 });
-                // console.log('count', count);
                 delete i.arr;
             });
 
@@ -143,29 +129,9 @@ app.post('/', (req, res) =>{
                 'Metafield Value': item['Metafield Value'],
                 'Metafield Value Type': item['Metafield Value Type'],
             }))
-            function funValidation (elem) {
-                const a = false;
-                // Object.keys(elem);
-                // console.log('elem-Email Address', elem['Email Address']);
-                // if()
-                // console.log(Object.keys(elem));
-                // console.log(Object.entries(elem));
-                Object.entries(elem).map(([key, value]) => {
-                    if (key === 'Last Name') {
-                        console.log('value-Last Name', value);
-                    }
-                    console.log('key-last-name', key['Last Name']);
-                    if (key === 'First Name') {
-                        console.log('value-First Name', value);
-                    }
-                    if (key === 'Email Address') {
-                        console.log('value-Email Address', value);
-                    }
-                })
-            }
+
             /*Write CSV*/
             changeArray.map((el)=>{
-                funValidation(el);
                 let a = `Email Address:${validator.isEmail(el['Email Address'])}, Last Name:${validator.isLength(el['Last Name'], {min:3, max: undefined})}, First Name:${validator.isLength(el['First Name'], {min:3, max: undefined})}`;
                 switch (
                     validator.isEmail(el['Email Address']) &&
